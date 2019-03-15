@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "start": "node startServer.js",
+    "server": "nodemon startServer.js",
+    "test": "jest",
+    "knex": "knex"
+  },
   "devDependencies": {
     "jest": "^24.4.0",
     "nodemon": "^1.18.10",
