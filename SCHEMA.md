@@ -41,3 +41,21 @@
 | inviter_id | int     | none    | FOREIGN KEY     | The ID of the user that this invite is from.  |
 | invitee_id | int     | none    | FOREIGN KEY     | The ID of the user that this invite is for.   |
 | key        | varchar | none    | NOT NULL        | The invite key for the invitee.               |
+
+## Table: meetups
+
+| Name     | Type    | Default | Constraints     | Description                                   |
+| -------- | ------- | ------- | --------------- | --------------------------------------------- |
+| id       | int     | AI      | PRIMARY KEY     | The primary incrementing ID.                  |
+| timezone | varchar | none    | NOT NULL        | The timezone of the listed time.              |
+| day      | int     | 0       | NOT NULL UNIQUE | The ISO-8601 day of the week.                 |
+| hour     | int     | 0       | NOT NULL        | The ISO-8601 hour.                            |
+| minute   | int     | 0       | NOT NULL        | The ISO-8601 minute.                          | 
+
+# Table: meetup_users
+
+| Name      | Type | Default | Constraints     | Description                          |
+| --------- | ---- | ------- | --------------- | ------------------------------------ |
+| id        | int  | AI      | PRIMARY KEY     | The primary incrementing ID.         |
+| meetup_id | int  | none    | FOREIGN KEY     | The meetup ID.                       |
+| user_id   | int  | none    | FOREIGN KEY     | The user ID partaking in the meetup. | 

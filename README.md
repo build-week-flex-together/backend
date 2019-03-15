@@ -154,11 +154,11 @@ URL: `/api/onboarding/confirmInvite/:key`
 }
 ```
 
-## Confirm Times - When an invited user has managed to decide on a time for the two users to meet up, the React application should send this request.
+## Confirm Time - When an invited user has managed to decide on a time for the two users to meet up, the React application should send this request.
 
 HTTP Method: `POST`
 
-URL: `/api/onboarding/confirmTimes/:inviteKey`
+URL: `/api/onboarding/confirmTime/:inviteKey`
 
 ### Headers
 
