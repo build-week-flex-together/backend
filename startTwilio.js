@@ -27,12 +27,12 @@ if (!phoneNumber)
     console.error('Your Twilio Phone Number appears to be missing. Check your dotenv setup.');
 
 if (!testReceiverPhoneNumber)
-    console.error('Your Test Receiver Phone Number appears to be missing. Check your dotenv setup.')
+    console.log('Your Test Receiver Phone Number appears to be missing. This is not an issue outside of testing. Check your dotenv setup.')
 
 // Twilio client init
 const client = twilio(accountSid, authToken);
 
-// Send trial message
+// Send trial message- this is a chainable promise.
 client.messages
     .create({
         body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
