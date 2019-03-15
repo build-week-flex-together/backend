@@ -1,13 +1,26 @@
 module.exports = {
-    development: {
+    test: {
         client: 'sqlite3',
-        connection: { filename: './data/db.db3' }, 
-        useNullAsDefault: true, 
+        connection: { filename: './data/test_db.db3' },
         migrations: {
             directory: './data/migrations',
             tableName: 'knex_migrations',
-        },
-        seeds: { directory: './data/seeds' },
+        }
     },
+    development: {
+        client: 'sqlite3',
+        connection: { filename: './data/dev_db.db3' },
+        migrations: {
+            directory: './data/migrations',
+            tableName: 'knex_migrations',
+        }
+    },
+    production: {
+        client: 'sqlite3',
+        connection: { filename: process.env.DB_PATH },
+        migrations: {
+            directory: './data/migrations',
+            tableName: 'knex_migrations',
+        }
+    }
 };
-  
