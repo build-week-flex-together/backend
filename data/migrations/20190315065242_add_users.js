@@ -25,7 +25,6 @@ exports.up = function(knex, Promise) {
         table.boolean('notify_email');
         table.boolean('notify_sms');
         table.integer('mobility_level');
-        table.unique('email');
     });
 };
 

@@ -34,6 +34,7 @@ router.post('/register', (req, res) => {
     const user_a = {
         user_type: req.body.myInfo.userType,
         name: req.body.myInfo.name,
+        email: req.body.myInfo.email,
         phone: req.body.myInfo.phone,
         verified: false,
         notify_email: req.body.myInfo.notifyEmail,
@@ -52,20 +53,26 @@ router.post('/register', (req, res) => {
         mobility_level: req.body.inviteInfo.mobility
     };
 
-    const times = req.body.myInfo.availabilityTimes;
     const emailer = req.app.get('emailer');
+    let times = req.body.myInfo.availabilityTimes;
     let user_ids = [];
     let token = '';
 
-    const usersPromise = () => db.insertUser([user_a, user_b]);
+    const userAPromise = () => db.insertUser(user_a);
+    const userBPromise = () => db.insertUser(user_b);
     const timesPromise = () => db.insertTimes(times);
     const invitePromise = ids => db.insertInvite(ids);
     const emailPromise = verifyToken => emailer.sendMessage(user_a.email, 'Your FlexTogether Verification Token', verifyToken);
 
-    usersPromise()
-        .then(ids => {
-            user_ids = ids;
-            token = tokenUtils.createVerifyToken(ids[0]);
+    userAPromise()
+        .then(([id])=> {
+            user_ids.push(id);
+            times = times.map(time => { return { user_id: id, ...time }; });
+            return userBPromise();
+        })
+        .then(([id])=> {
+            user_ids.push(id);
+            token = tokenUtils.createVerifyToken(user_ids[0]);
             return timesPromise();
         })
         .then(_ => invitePromise(user_ids))
@@ -98,11 +105,12 @@ router.post('/verifyEmail/:token', (req, res) => {
     const texter = req.app.get('texter');
     const verifyPromise = () => db.verifyUserEmail(user_id);
     const invitesPromise = () => db.getUserInvites(user_id);
+    const deleteInvitesPromise = () => db.deleteUserInvites(user_id);
 
     db.verifyUserEmail(user_id)
         .then(_ => invitesPromise())
         .then(invitees => {
-            return Promise.all(invitees.map(invitee_id => {
+            return Promise.all(invitees.map(({ invitee_id })=> {
                 const token = tokenUtils.createInviteToken(user_id, invitee_id);
                 const getEmailPromise = () => db.getUserEmail(invitee_id);
                 const sendEmailPromise = invitee_email => emailer.sendMessage(invitee_email, 'Your FlexTogether Invite Token', token);
@@ -110,11 +118,12 @@ router.post('/verifyEmail/:token', (req, res) => {
                 const sendPhonePromise = invitee_phone => texter.sendMessage(invitee_phone, `Your FlexTogether Invite Token: ${token}`);
 
                 return getEmailPromise()
-                    .then(email => sendEmailPromise(email))
+                    .then(users => sendEmailPromise(users[0].email))
                     .then(_ => getPhonePromise())
-                    .then(phone => sendPhonePromise(phone));
+                    .then(users => sendPhonePromise(users[0].phone));
             }));
         })
+        .then(_ => deleteInvitesPromise())
         .then(_ => {
             res.status(201).end();
         })
@@ -139,7 +148,7 @@ router.get('/confirmInvite/:token', (req, res) => {
         return;
     }
 
-    Promise.all(db.getUserName(data.inviter_id), db.getUserTimes(data.inviter_id), db.verifyUserEmail(invitee_id))
+    Promise.all([db.getUserName(data.inviter_id), db.getUserTimes(data.inviter_id), db.verifyUserEmail(data.invitee_id)])
         .then(([name, times]) => {
             res.status(200).json({ inviter_name: name, availabilityTimes: times });
         })
@@ -183,7 +192,7 @@ router.post('/confirmTime/:token', (req, res) => {
     const meetupUsersPromise = meetup_id => db.insertMeetupUsers(meetup_id, [data.inviter_id, data.invitee_id]);
     
     meetupPromise()
-        .then(id => meetupUsersPromise(id))
+        .then(([id])=> meetupUsersPromise(id))
         .then(_ => {
             res.status(201).end();
         })

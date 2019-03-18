@@ -23,7 +23,7 @@ const checkVerifyToken = function(token) {
         if (payload.type !== 'verify')
             return null;
         
-        return user_id;
+        return payload.user_id;
     }
     catch (err) {
         console.log('JWT verify token check failed!');

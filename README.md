@@ -74,7 +74,7 @@ URL: `/api/onboarding/register`
 
 ```json
 {
-    "my_info": {
+    "myInfo": {
         "userType: {userType integer},
         "name: {string},
         "email: {email string},
