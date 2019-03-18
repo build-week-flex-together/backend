@@ -42,3 +42,11 @@
 | id        | int  | AI      | PRIMARY KEY     | The primary incrementing ID.         |
 | meetup_id | int  | none    | FOREIGN KEY     | The meetup ID.                       |
 | user_id   | int  | none    | FOREIGN KEY     | The user ID partaking in the meetup. | 
+
+# Table: invites
+
+| Name       | Type | Default | Constraints     | Description                          |
+| ---------- | ---- | ------- | --------------- | ------------------------------------ |
+| id         | int  | AI      | PRIMARY KEY     | The primary incrementing ID.         |
+| inviter_id | int  | none    | FOREIGN KEY     | The user who is inviting the other.  | 
+| invitee_id | int  | none    | FOREIGN KEY     | The user being invited.              | 
