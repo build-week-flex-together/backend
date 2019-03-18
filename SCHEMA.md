@@ -21,26 +21,9 @@
 | id       | int     | AI      | PRIMARY KEY     | The primary incrementing ID.                  |
 | user_id  | int     | none    | FOREIGN KEY     | The ID of the user that this time is for.     |
 | timezone | varchar | none    | NOT NULL        | The timezone of the listed time.              |
-| day      | int     | 0       | NOT NULL UNIQUE | The ISO-8601 day of the week.                 |
+| day      | int     | 0       | NOT NULL        | The ISO-8601 day of the week.                 |
 | hour     | int     | 0       | NOT NULL        | The ISO-8601 hour.                            |
 | minute   | int     | 0       | NOT NULL        | The ISO-8601 minute.                          | 
-
-## Table: verify_keys
-
-| Name     | Type    | Default | Constraints     | Description                                   |
-| -------- | ------- | ------- | --------------- | --------------------------------------------- |
-| id       | int     | AI      | PRIMARY KEY     | The primary incrementing ID.                  |
-| user_id  | int     | none    | FOREIGN KEY     | The ID of the user.                           |
-| key      | varchar | none    | NOT NULL        | The verification key for this user.           |
-
-## Table: invites
-
-| Name       | Type    | Default | Constraints     | Description                                   |
-| ---------- | ------- | ------- | --------------- | --------------------------------------------- |
-| id         | int     | AI      | PRIMARY KEY     | The primary incrementing ID.                  |
-| inviter_id | int     | none    | FOREIGN KEY     | The ID of the user that this invite is from.  |
-| invitee_id | int     | none    | FOREIGN KEY     | The ID of the user that this invite is for.   |
-| key        | varchar | none    | NOT NULL        | The invite key for the invitee.               |
 
 ## Table: meetups
 
@@ -48,7 +31,7 @@
 | -------- | ------- | ------- | --------------- | --------------------------------------------- |
 | id       | int     | AI      | PRIMARY KEY     | The primary incrementing ID.                  |
 | timezone | varchar | none    | NOT NULL        | The timezone of the listed time.              |
-| day      | int     | 0       | NOT NULL UNIQUE | The ISO-8601 day of the week.                 |
+| day      | int     | 0       | NOT NULL        | The ISO-8601 day of the week.                 |
 | hour     | int     | 0       | NOT NULL        | The ISO-8601 hour.                            |
 | minute   | int     | 0       | NOT NULL        | The ISO-8601 minute.                          | 
 
