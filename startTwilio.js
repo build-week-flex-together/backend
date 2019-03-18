@@ -1,5 +1,4 @@
 // Starter script for verifying twilio functionality.
-// This script, along with other start scripts, are not covered by TDD. 
 
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Your Account Sid and Auth Token from twilio.com/console

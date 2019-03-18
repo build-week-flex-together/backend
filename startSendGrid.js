@@ -1,5 +1,4 @@
 // Starter script for verifying sendgrid functionality.
-// This script, along with other start scripts, are not covered by TDD. 
 
 // Package imports
 const dotenv = require('dotenv');
