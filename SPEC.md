@@ -18,18 +18,16 @@
 ## Register 
 
 1. Store onboarding data.
-2. Generate email verification key. 
-3. Store email verification key. 
-4. Send email verification link in email with SendGrid. 
-5. Return 201. 
+2. Generate email verification JWT.
+3. Send email verification link in email with SendGrid. 
+4. Return 201. 
 
 ## VerifyEmail
 
 1. Confirm email in onboarding data.
-2. Generate invite key.
-3. Store invite key.
-4. Send invite key in email with SendGrid and in SMS with Twilio to invitee.
-5. Return 201.
+2. Generate invite JWT.
+3. Send invite token in email with SendGrid and in SMS with Twilio to invitee.
+4. Return 201.
     
 ## ConfirmInvite
 
