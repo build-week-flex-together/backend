@@ -103,7 +103,7 @@ URL: `/api/onboarding/register`
 
 HTTP Method: `POST`
 
-URL: `/api/onboarding/verifyEmail/:key`
+URL: `/api/onboarding/verifyEmail/:token`
 
 ### Headers
 
@@ -113,21 +113,21 @@ URL: `/api/onboarding/verifyEmail/:key`
 
 ### Parameters
 
-| Name | Type   | Required | Description                                                                     |
-| ---- | ------ | -------- | ------------------------------------------------------------------------------- |
-| key  | String | Yes      | A random-looking string that should be supplied in the verification email link. |
+| Name  | Type   | Required | Description                                                       |
+| ----- | ------ | -------- | ----------------------------------------------------------------- |
+| token | String | Yes      | A jwt supplying the necessary information for email verification. |
 
 ### Notable Responses:
 
 **201 (Created)**
 
-> The email was successfully verified, and the invite tied to this registration was sent through email/SMs. There is no response body.
+> The email was successfully verified, and the invite tied to this registration was sent through email/SMS. There is no response body.
 
 ## Confirm Invite - When an invited user click the link received in their email/SMS, the React application should follow up with this request.
 
 HTTP Method: `GET`
 
-URL: `/api/onboarding/confirmInvite/:key`
+URL: `/api/onboarding/confirmInvite/:token`
 
 ### Headers
 
@@ -137,9 +137,9 @@ URL: `/api/onboarding/confirmInvite/:key`
 
 ### Parameters
 
-| Name | Type   | Required | Description                                                         |
-| ---- | ------ | -------- | ------------------------------------------------------------------- |
-| key  | String | Yes      | A random-looking string that should be supplied in the invite link. |
+| Name  | Type   | Required | Description                                               |
+| ----- | ------ | -------- | --------------------------------------------------------- |
+| token | String | Yes      | A jwt supplying the necessary information for invitation. |
 
 ### Response:
 
@@ -158,7 +158,7 @@ URL: `/api/onboarding/confirmInvite/:key`
 
 HTTP Method: `POST`
 
-URL: `/api/onboarding/confirmTime/:inviteKey`
+URL: `/api/onboarding/confirmTime/:token`
 
 ### Headers
 
@@ -168,9 +168,9 @@ URL: `/api/onboarding/confirmTime/:inviteKey`
 
 ### Parameters
 
-| Name        | Type   | Required | Description                                                        |
-| ---------- | ------ | -------- | ------------------------------------------------------------------- |
-| inviteKey  | String | Yes      | A random-looking string that should be supplied in the invite link. |
+| Name  | Type   | Required | Description                                               |
+| ----- | ------ | -------- | --------------------------------------------------------- |
+| token | String | Yes      | A jwt supplying the necessary information for invitation. |
 
 ### Body
 
