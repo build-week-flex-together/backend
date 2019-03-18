@@ -18,7 +18,12 @@ const createInviteToken = function(inviter_id, invitee_id) {
 // check email verification token
 const checkVerifyToken = function(token) {
     try {
-        return jwt.verify(token, JWT_SECRET);
+        const payload = jwt.verify(token, JWT_SECRET);
+
+        if (payload.type !== 'verify')
+            return null;
+        
+        return user_id;
     }
     catch (err) {
         console.log('JWT verify token check failed!');
@@ -30,7 +35,15 @@ const checkVerifyToken = function(token) {
 // check invite token
 const checkInviteToken = function(token) {
     try {
-        return jwt.verify(token, JWT_SECRET);
+        const payload = jwt.verify(token, JWT_SECRET);
+
+        if (payload.type !== 'invite')
+            return null;
+        
+        return {
+            inviter_id: payload.inviter_id,
+            invitee_id: payload.invitee_id
+        };
     }
     catch (err) {
         console.log('JWT invite token check failed!');
@@ -44,4 +57,4 @@ module.exports = {
     createInviteToken,
     checkVerifyToken,
     checkInviteToken
-}
+};
