@@ -8,13 +8,13 @@ const Emailer = function() {
     this.apiKey = process.env.SENDGRID_API_KEY;
     this.fromEmail = process.env.SENDGRID_SENDER_EMAIL;
 
-    if (!apiKey)
+    if (!this.apiKey)
         console.error('It appears your API Key is missing. Check your dotenv setup.');
 
-    if (!fromEmail)
+    if (!this.fromEmail)
         console.error('It appears your Sender Email is missing. Check your dotenv setup.');
 
-    sgMail.setApiKey(apiKey);
+    sgMail.setApiKey(this.apiKey);
 }
 
 // This returns a promise

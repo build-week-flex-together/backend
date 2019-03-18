@@ -9,16 +9,16 @@ const Texter = function() {
     this.authToken = process.env.TWILIO_AUTH_TOKEN;
     this.phoneNumber = process.env.TWILIO_PHONE_NUMBER;
 
-    if (!accountSid)
+    if (!this.accountSid)
         console.error('Your Twilio Account SID appears to be missing. Check your dotenv setup.');
 
-    if (!authToken)
+    if (!this.authToken)
         console.error('Your Twilio Auth Token appears to be missing. Check your dotenv setup.');
 
-    if (!phoneNumber)
+    if (!this.phoneNumber)
         console.error('Your Twilio Phone Number appears to be missing. Check your dotenv setup.');
     
-    this.client = twilio(accountSid, authToken);
+    this.client = twilio(this.accountSid, this.authToken);
 };
 
 // sendMessage returns a promise

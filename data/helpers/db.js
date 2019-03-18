@@ -1,21 +1,6 @@
 const db = require('../dbConfig');
 // Should act as a helper module for database queries.
 
-module.exports = {
-    insertUser,
-    insertTimes,
-    insertInvite,
-    verifyUserEmail,
-    getUserInvites,
-    deleteUserInvites,
-    getUserEmail,
-    getUserPhone,
-    getUserName,
-    getUserTimes,
-    insertMeetup,
-    insertMeetupUsers
-}
-
 // Insert user
 const insertUser = function(user) {
     return db('users').insert(user).returning('id');
@@ -85,4 +70,19 @@ const insertMeetupUsers = function(meetup_id, user_ids) {
         });
     });
     return db('meetup_users').insert(inserts).returning('id');
+};
+
+module.exports = {
+    insertUser,
+    insertTimes,
+    insertInvite,
+    verifyUserEmail,
+    getUserInvites,
+    deleteUserInvites,
+    getUserEmail,
+    getUserPhone,
+    getUserName,
+    getUserTimes,
+    insertMeetup,
+    insertMeetupUsers
 };

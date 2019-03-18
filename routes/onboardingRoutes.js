@@ -14,8 +14,7 @@ router.post('/register', (req, res) => {
         return;
     }
 
-    if (!req.body.myInfo.userType, 
-        || !req.body.myInfo.name || !req.body.myInfo.email || !req.body.myInfo.phone 
+    if (!req.body.myInfo.userType || !req.body.myInfo.name || !req.body.myInfo.email || !req.body.myInfo.phone 
         || req.body.myInfo.notifyEmail === null || !req.body.myInfo.notifyPhone === null 
         || !req.body.myInfo.mobility || !req.body.myInfo.availabilityTimes) {
             res.status(400).json({ 
@@ -141,7 +140,7 @@ router.get('/confirmInvite/:token', (req, res) => {
     }
 
     Promise.all(db.getUserName(data.inviter_id), db.getUserTimes(data.inviter_id), db.verifyUserEmail(invitee_id))
-        .then([name, times] => {
+        .then(([name, times]) => {
             res.status(200).json({ inviter_name: name, availabilityTimes: times });
         })
         .catch(err => {
@@ -193,3 +192,5 @@ router.post('/confirmTime/:token', (req, res) => {
             res.status(500).json({ error: 'Could not create new meetup' });
         });
 });
+
+module.exports = router;
